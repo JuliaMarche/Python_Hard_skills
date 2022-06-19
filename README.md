@@ -1,1 +1,1 @@
-# Python_Hard_skills
+# Repository for Python Training
