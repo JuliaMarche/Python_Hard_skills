@@ -13,7 +13,7 @@ class test_add_group(unittest.TestCase):
         self.wd = webdriver.Firefox(executable_path=r'C:\Windows\System32\geckodriver.exe', options=options)
         self.wd.implicitly_wait(30)
 
-    def test_test_add_group(self):
+    def test_add_group(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
