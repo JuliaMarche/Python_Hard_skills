@@ -4,6 +4,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time
+from group import Group
 
 options = Options()
 options.binary_location = r'C:\Users\marchenko.js\AppData\Local\Mozilla Firefox\firefox.exe'
@@ -19,7 +20,7 @@ class test_add_group(unittest.TestCase):
         self.login(wd, username="admin", password="secret")
         self.open_groups_page(wd)
         self.init_group_creation(wd)
-        self.fill_group_form(wd, name="test", header="test", footer="testtest")
+        self.fill_group_form(wd, Group(name="test", header="test", footer="testtest"))
         self.submit_group_creation(wd)
         self.return_to_groups_page(wd)
         self.logout(wd)
@@ -35,18 +36,18 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_name("submit").click()
         time.sleep(1)
 
-    def fill_group_form(self, wd, name, header, footer):
+    def fill_group_form(self, wd, group):
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(name)
+        wd.find_element_by_name("group_name").send_keys(group.name)
         time.sleep(1)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         time.sleep(1)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         time.sleep(1)
 
     def init_group_creation(self, wd):
