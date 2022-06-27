@@ -14,13 +14,8 @@ class test_add_group(unittest.TestCase):
 
     def test_add_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.init_contact_creation(wd)
         self.fill_contact_form(wd, Contact(firstname="Test", middlename="Test", lastname="Test", nickname="Test", title="Test", company="Test", address="Test", home="Test", work="Test", email="Test", bday="19", bmonth="June", byear="1994", address2="Test", notes="Test"))
-        self.submit_contact_creation(wd)
-        time.sleep(1)
-        self.return_to_home_page(wd)
         time.sleep(2)
         self.logout(wd)
 
@@ -32,6 +27,7 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def fill_contact_form(self, wd, contact):
+        self.init_contact_creation(wd)
         # Add firstname
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -75,6 +71,9 @@ class test_add_group(unittest.TestCase):
         # Add notes
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").send_keys(contact.notes)
+        self.submit_contact_creation(wd)
+        time.sleep(1)
+        self.return_to_home_page(wd)
 
     def init_contact_creation(self, wd):
         wd.find_element_by_link_text("add new").click()
@@ -83,6 +82,7 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_link_text("Logout").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
