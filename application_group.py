@@ -1,11 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-import unittest, time
+import time
 
 options = Options()
 options.binary_location = r"C:\Users\marchenko.js\AppData\Local\Mozilla Firefox\firefox.exe"
 
-class Application:
+class Application_group:
 
     def __init__(self):
         self.wd = webdriver.Firefox(executable_path=r'C:\Windows\System32\geckodriver.exe', options=options)
@@ -18,7 +18,6 @@ class Application:
     def return_to_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("group page").click()
-        time.sleep(1)
 
     def submit_group_creation(self):
         wd = self.wd
@@ -67,5 +66,5 @@ class Application:
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def destroy (self):
+    def destroy(self):
         self.wd.quit()
