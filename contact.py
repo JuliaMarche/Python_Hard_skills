@@ -6,9 +6,9 @@ class Contact:
         self.nickname = nickname
         self.title = title
         self.company = company
-        self.address = address
-        self.home = home
-        self.work = work
+        self.company_address = address
+        self.home_phone = home
+        self.work_phone = work
         self.email = email
         self.bday = bday
         self.bmonth = bmonth

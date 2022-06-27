@@ -4,7 +4,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.select import Select
 import unittest, time
 from group import Group
-from contact import Contact
 
 options = Options()
 options.binary_location = r"C:\Users\marchenko.js\AppData\Local\Mozilla Firefox\firefox.exe"

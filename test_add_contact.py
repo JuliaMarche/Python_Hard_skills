@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.select import Select
 import unittest, time
-from group import Group
 from contact import Contact
 
 options = Options()
@@ -53,13 +52,13 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_name("company").send_keys(contact.company)
         # Add address
         wd.find_element_by_name("address").click()
-        wd.find_element_by_name("address").send_keys(contact.address)
-        # Add home
+        wd.find_element_by_name("address").send_keys(contact.company_address)
+        # Add home_phone
         wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").send_keys(contact.home)
-        # Add work
+        wd.find_element_by_name("home").send_keys(contact.home_phone)
+        # Add work_phone
         wd.find_element_by_name("work").click()
-        wd.find_element_by_name("work").send_keys(contact.work)
+        wd.find_element_by_name("work").send_keys(contact.work_phone)
         # Add email
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").send_keys(contact.email)
