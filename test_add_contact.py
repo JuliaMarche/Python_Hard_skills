@@ -16,7 +16,6 @@ class test_add_group(unittest.TestCase):
         wd = self.wd
         self.login(wd, username="admin", password="secret")
         self.fill_contact_form(wd, Contact(firstname="Test", middlename="Test", lastname="Test", nickname="Test", title="Test", company="Test", address="Test", home="Test", work="Test", email="Test", bday="19", bmonth="June", byear="1994", address2="Test", notes="Test"))
-        time.sleep(2)
         self.logout(wd)
 
 
