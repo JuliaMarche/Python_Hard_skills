@@ -1,4 +1,3 @@
-
 class SessionHelper_group:
 
     def __init__(self, app_group):
