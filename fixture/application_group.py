@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from fixture.session_group import SessionHelper_group
 import time
 
 options = Options()
@@ -10,10 +11,7 @@ class Application_group:
     def __init__(self):
         self.wd = webdriver.Firefox(executable_path=r'C:\Windows\System32\geckodriver.exe', options=options)
         self.wd.implicitly_wait(60)
-
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
+        self.session_group = SessionHelper_group(self)
 
     def return_to_groups_page(self):
         wd = self.wd
@@ -48,19 +46,6 @@ class Application_group:
         wd = self.wd
         wd.find_element_by_id("container").click()
         wd.find_element_by_link_text("groups").click()
-
-    def login(self, username, password):
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        time.sleep(1)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-        time.sleep(2)
 
     def open_home_page(self):
         wd = self.wd

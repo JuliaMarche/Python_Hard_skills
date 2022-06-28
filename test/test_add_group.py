@@ -10,6 +10,6 @@ def app_group(request):
     return fixture
 
 def test_add_group(app_group):
-    app_group.login(username="admin", password="secret")
+    app_group.session_group.login(username="admin", password="secret")
     app_group.fill_group_form(Group(name="test", header="test", footer="testtest"))
-    app_group.logout()
+    app_group.session_group.logout()
