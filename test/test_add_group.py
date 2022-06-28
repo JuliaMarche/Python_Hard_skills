@@ -11,5 +11,5 @@ def app_group(request):
 
 def test_add_group(app_group):
     app_group.session_group.login(username="admin", password="secret")
-    app_group.fill_group_form(Group(name="test", header="test", footer="testtest"))
+    app_group.group.fill_form(Group(name="test", header="test", footer="testtest"))
     app_group.session_group.logout()
