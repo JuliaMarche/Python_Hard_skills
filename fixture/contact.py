@@ -1,6 +1,5 @@
 from selenium.webdriver.support.select import Select
 import time
-from selenium.webdriver.common.keys import Keys
 
 
 class ContactHelper:
@@ -74,7 +73,6 @@ class ContactHelper:
         wd = self.app.wd
         self.open_to_home_page()
         wd.find_element_by_name("selected[]").click()
-        time.sleep(3)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
 
