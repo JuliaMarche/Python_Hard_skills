@@ -1,5 +1,7 @@
 from selenium.webdriver.support.select import Select
 import time
+from selenium.webdriver.common.keys import Keys
+
 
 class ContactHelper:
 
@@ -13,6 +15,10 @@ class ContactHelper:
     def submit_contact_creation(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+    def open_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
 
     def fill_form(self, contact):
         wd = self.app.wd
@@ -64,6 +70,15 @@ class ContactHelper:
         time.sleep(1)
         self.return_to_home_page()
 
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.open_to_home_page()
+        wd.find_element_by_name("selected[]").click()
+        time.sleep(3)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+
     def init_contact_creation(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
