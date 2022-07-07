@@ -6,7 +6,7 @@ from fixture.contact import ContactHelper
 
 
 options = Options()
-options.binary_location = r"C:\Users\marchenko.js\AppData\Local\Mozilla Firefox\firefox.exe"
+options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
 
 class Application:
 
