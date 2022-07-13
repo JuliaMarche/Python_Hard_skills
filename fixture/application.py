@@ -6,13 +6,12 @@ from fixture.contact import ContactHelper
 
 
 options = Options()
-options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
+options.binary_location = r"C:\Users\marchenko.js\AppData\Local\Mozilla Firefox\firefox.exe"
 
 class Application:
 
     def __init__(self):
         self.wd = webdriver.Firefox(executable_path=r'C:\Windows\System32\geckodriver.exe', options=options)
-        self.wd.implicitly_wait(0.5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)

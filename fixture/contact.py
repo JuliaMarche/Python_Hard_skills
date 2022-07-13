@@ -10,7 +10,7 @@ class ContactHelper:
         self.init_contact_creation()
         self.info_from_form(contact)
         self.submit_contact_creation()
-        self.return_to_home_page()
+        self.open_to_home_page()
 
     def modify_form(self, new_contact_data):
         self.open_to_home_page()
@@ -28,7 +28,8 @@ class ContactHelper:
 
     def open_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("./") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def init_contact_creation(self):
         wd = self.app.wd
@@ -54,13 +55,10 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//input[@value='Delete']").click()
 
-    def return_to_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
-
     def return_after_modify(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page")
+        if not (wd.current_url.endswith("./") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
+            wd.find_element_by_link_text("home page")
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
