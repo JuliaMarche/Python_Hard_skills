@@ -28,7 +28,7 @@ class ContactHelper:
 
     def open_to_home_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
+        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
             wd.find_element_by_link_text("home").click()
 
     def init_contact_creation(self):
@@ -57,7 +57,7 @@ class ContactHelper:
 
     def return_after_modify(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith("http://localhost/addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
+        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
             wd.find_element_by_link_text("home page")
 
     def change_field_value(self, field_name, text):
