@@ -35,6 +35,10 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.
+
     def open_to_home_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
@@ -85,7 +89,9 @@ class ContactHelper:
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.company_address)
         self.change_field_value("home", contact.home_phone)
+        self.change_field_value("mobile", contact.mobile)
         self.change_field_value("work", contact.work_phone)
+        self.change_field_value("phone2", contact.second_phone)
         self.change_field_value("email", contact.email)
         self.change_field_value("address2", contact.address2)
         self.change_field_value("notes", contact.notes)
@@ -109,3 +115,4 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(firstname=cells_firstname.text, lastname=cells_lastname.text, id=id))
         return list(self.contact_cache)
+
