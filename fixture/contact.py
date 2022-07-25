@@ -38,8 +38,15 @@ class ContactHelper:
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
         self.open_to_home_page()
-        row = wd.find_elements_by_name("entry")[index]
-        cell = row. element.find_elements_by_tag_name("td")[6]
+        element = wd.find_elements_by_name("entry")[index]
+        cell = element.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.open_to_home_page()
+        element = wd.find_elements_by_name("entry")[index]
+        cell = element.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
 
@@ -109,13 +116,14 @@ class ContactHelper:
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            wd.find_element_by_link_text("home").click()
+            self.open_to_home_page()
+            # wd.find_element_by_link_text("home").click()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 cells = element.find_elements_by_tag_name("td")
                 firstname = cells[2].text
                 lastname = cells[1].text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
+                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 all_phones = cells[5].text.splitlines()
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id,
                                                   homephone=all_phones[0], mobile=all_phones[1],
@@ -124,7 +132,7 @@ class ContactHelper:
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
-        self.open_contact_view_by_index(index)
+        self.open_contact_to_edit_by_index(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
