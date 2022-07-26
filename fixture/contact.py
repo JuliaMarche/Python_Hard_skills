@@ -1,3 +1,5 @@
+import re
+
 from model.contact import Contact
 
 class ContactHelper:
@@ -34,21 +36,6 @@ class ContactHelper:
         self.delete_contact()
         wd.switch_to.alert.accept()
         self.contact_cache = None
-
-    def open_contact_view_by_index(self, index):
-        wd = self.app.wd
-        self.open_to_home_page()
-        element = wd.find_elements_by_name("entry")[index]
-        cell = element.find_elements_by_tag_name("td")[6]
-        cell.find_element_by_tag_name("a").click()
-
-    def open_contact_to_edit_by_index(self, index):
-        wd = self.app.wd
-        self.open_to_home_page()
-        element = wd.find_elements_by_name("entry")[index]
-        cell = element.find_elements_by_tag_name("td")[7]
-        cell.find_element_by_tag_name("a").click()
-
 
     def open_to_home_page(self):
         wd = self.app.wd
@@ -111,23 +98,35 @@ class ContactHelper:
         self.open_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+
     contact_cache = None
 
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            self.open_to_home_page()
-            # wd.find_element_by_link_text("home").click()
+            wd.find_element_by_link_text("home").click()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 cells = element.find_elements_by_tag_name("td")
-                firstname = cells[2].text
-                lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                lastname = cells[1]
+                firstname = cells[2]
                 all_phones = cells[5].text.splitlines()
-                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id,
-                                                  homephone=all_phones[0], mobile=all_phones[1],
-                                                  workphone=all_phones[2]))
+                self.contact_cache.append(Contact(firstname=firstname.text, lastname=lastname.text, id=id,
+                                                  homephone=all_phones[0], mobile=all_phones[1], workphone=all_phones[2]))
         return list(self.contact_cache)
 
     def get_contact_info_from_edit_page(self, index):
@@ -141,3 +140,12 @@ class ContactHelper:
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, homephone=homephone, workphone=workphone,
                        mobile=mobile)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobile = re.search("M: (.*)", text).group(1)
+        return Contact(homephone=homephone, workphone=workphone, mobile=mobile)
