@@ -12,6 +12,7 @@ def test_contact_view_page(app):
     assert contact_from_view_page.homephone == contact_from_edit_page.homephone
     assert contact_from_view_page.workphone == contact_from_edit_page.workphone
     assert contact_from_view_page.mobile == contact_from_edit_page.mobile
+    assert contact_from_view_page.secondphone == contact_from_edit_page.secondphone
 
 
 def clear(s):
