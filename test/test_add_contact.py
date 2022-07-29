@@ -20,7 +20,7 @@ testdata = [Contact(firstname="", lastname="", mobile="", email="")] + [
             lastname=random_string("lastname", 10), nickname=random_string("nickname", 10), title=random_string("title", 10),
             company=random_string("company", 10), address=random_string("address", 10), homephone=random_phone(),
             workphone=random_phone(), mobile=random_phone(), secondphone=random_phone(),
-            email=random_email(), second_email=random_email(), bday="19", bmonth="June",
+            email=random_email(), second_email=random_email(), third_email=random_email(), bday="19", bmonth="June",
             byear="1994", second_address=random_string("second_address", 10), notes=random_string("notes", 10))
 for i in range(3)
 ]

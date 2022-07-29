@@ -92,6 +92,7 @@ class ContactHelper:
         self.change_field_value("phone2", contact.secondphone)
         self.change_field_value("email", contact.email)
         self.change_field_value("email2", contact.second_email)
+        self.change_field_value("email3", contact.third_email)
         self.change_field_value("address2", contact.second_address)
         self.change_field_value("notes", contact.notes)
 
@@ -147,8 +148,10 @@ class ContactHelper:
         secondphone = wd.find_element_by_name("phone2").get_attribute("value")
         email = wd. find_element_by_name("email").get_attribute("value")
         second_email = wd. find_element_by_name("email2").get_attribute("value")
+        third_email = wd. find_element_by_name("email3").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, address=address, id=id, homephone=homephone,
-                       workphone=workphone, mobile=mobile, secondphone=secondphone, email=email, second_email=second_email)
+                       workphone=workphone, mobile=mobile, secondphone=secondphone, email=email,
+                       second_email=second_email, third_email=third_email)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
