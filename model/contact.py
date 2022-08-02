@@ -5,6 +5,7 @@ class Contact:
                  address=None, homephone=None, workphone=None, mobile=None, secondphone=None, email=None,second_email=None, bday=None, bmonth=None,
                  byear=None, second_address=None, notes=None, id=None, third_email=None, all_phones_from_home_page=None,
                  all_email_from_home_page=None):
+        self.id = id
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -24,7 +25,6 @@ class Contact:
         self.byear = byear
         self.second_address = second_address
         self.notes = notes
-        self.id = id
         self.all_phones_from_home_page = all_phones_from_home_page
         self.all_email_from_home_page = all_email_from_home_page
 
