@@ -25,6 +25,16 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cache = None
 
+    def modify_form_by_id(self, new_group_data):
+        self.open_groups_page()
+        self.select_group_by_id(new_group_data.id)
+        self.edit_group()
+        self.fill_group_form(new_group_data)
+        self.update_group_info()
+        self.return_to_groups_page()
+        self.group_cache = None
+
+
     def delete_first_group(self):
         self.delete_group_by_index(0)
 
@@ -109,3 +119,13 @@ class GroupHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, id=id))
         return list(self.group_cache)
+
+    def old_groups_list(self, groups, group):
+        n = -1
+        for i in range(len(groups)):
+            g = groups[i]
+            if g.id == group.id:
+                n = i
+                break
+        groups[n] = group
+
