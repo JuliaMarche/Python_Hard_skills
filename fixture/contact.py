@@ -86,7 +86,7 @@ class ContactHelper:
             cell = row.find_elements_by_tag_name("td")[7]
             cells = cell.find_element_by_xpath("./a[@href]").get_attribute("href")
             id_number = (cells.split("id=")[1])
-            if id_number == str(id):
+            if id_number == id:
                 break
 
     def submit_contact_creation(self):
