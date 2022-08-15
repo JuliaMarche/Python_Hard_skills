@@ -20,7 +20,15 @@ class ContactHelper:
 
     def modify_form_by_index(self, new_contact_data, index):
         self.open_to_home_page()
-        self.edit_contact(index)
+        self.edit_contact_index(index)
+        self.info_from_form(new_contact_data)
+        self.update_contact_info()
+        self.return_after_modify()
+        self.contact_cache = None
+
+    def modify_form_by_id(self, new_contact_data):
+        self.open_to_home_page()
+        self.edit_contact_id(new_contact_data.id)
         self.info_from_form(new_contact_data)
         self.update_contact_info()
         self.return_after_modify()
@@ -37,6 +45,14 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_to_home_page()
+        self.select_contact_by_id(id)
+        self.delete_contact()
+        wd.switch_to.alert.accept()
+        self.contact_cache = None
+
     def open_to_home_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath('//*[@title="Details"]')) > 0):
@@ -46,13 +62,32 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def edit_contact(self, index):
+    def edit_contact_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath('//*[@title="Edit"]')[index].click()
+
+    def edit_contact_id(self, id):
+        wd = self.app.wd
+        for row in wd.find_elements_by_name("entry"):
+            cell = row.find_elements_by_tag_name("td")[7]
+            cells = cell.find_element_by_xpath("./a[@href]").get_attribute("href")
+            id_number = cells.split("id=")[1]
+            if id_number == str(id):
+                cell.find_element_by_tag_name("a").click()
+                break
 
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        for row in wd.find_elements_by_name("entry"):
+            cell = row.find_elements_by_tag_name("td")[7]
+            cells = cell.find_element_by_xpath("./a[@href]").get_attribute("href")
+            id_number = (cells.split("id=")[1])
+            if id_number == str(id):
+                break
 
     def submit_contact_creation(self):
         wd = self.app.wd
@@ -162,3 +197,12 @@ class ContactHelper:
         mobile = re.search("M: (.*)", text).group(1)
         secondphone = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, workphone=workphone, mobile=mobile, secondphone=secondphone)
+
+    def old_contact_list(self, contacts, contact):
+        n = -1
+        for i in range(len(contacts)):
+            c = contacts[i]
+            if c.id == contact.id:
+                n = i
+                break
+        contacts[n] = contact
