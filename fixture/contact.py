@@ -210,7 +210,6 @@ class ContactHelper:
         self.open_contact_list_page()
         self.contact_cache = None
 
-
     def delete_contact_in_group(self, id_c, id_g):
         wd = self.app.wd
         self.app.open_home_page()

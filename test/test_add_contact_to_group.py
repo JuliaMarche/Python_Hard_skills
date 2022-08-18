@@ -31,18 +31,3 @@ def check_free_contact(groups):
         if db.get_contacts_not_in_group(group)[0] != []:
             free_contacts.append(db.get_contacts_not_in_group(group))
     return free_contacts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
