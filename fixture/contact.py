@@ -62,22 +62,14 @@ class ContactHelper:
         self.change_field_value("company", contact.company)
         self.change_field_value("address", contact.address)
         self.change_field_value("home", contact.homephone)
-        self.change_field_value("mobile", contact.mobilephone)
+        self.change_field_value("mobile", contact.mobile)
         self.change_field_value("work", contact.workphone)
-        self.change_field_value("fax", contact.fax)
+        self.change_field_value("phone2", contact.secondphone)
         self.change_field_value("email", contact.email)
-        self.change_field_value("email2", contact.email2)
-        self.change_field_value("email3", contact.email3)
-        self.change_field_value("homepage", contact.homepage)
-        self.change_field_value("byear", contact.byear)
-        self.change_field_value("ayear", contact.ayear)
-        self.change_field_value("address2", contact.address2)
-        self.change_field_value("phone2", contact.phone2)
+        self.change_field_value("email2", contact.second_email)
+        self.change_field_value("email3", contact.third_email)
+        self.change_field_value("address2", contact.second_address)
         self.change_field_value("notes", contact.notes)
-        self.change_field_value_select("bday", contact.bday)
-        self.change_field_value_select("bmonth", contact.bmonth)
-        self.change_field_value_select("aday", contact.aday)
-        self.change_field_value_select("amonth", contact.amonth)
 
     def change_field_value_select(self, field_name, text):
         wd = self.app.wd
@@ -208,22 +200,23 @@ class ContactHelper:
         secondphone = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, workphone=workphone, mobile=mobile, secondphone=secondphone)
 
-    def add_contact_to_group(self, id_contact, id_group):
+    def add_contact_to_group(self, id_c, id_g):
         wd = self.app.wd
         self.app.open_home_page()
-        self.select_contact_by_id(id_contact)
+        self.select_contact_by_id(id_c)
         wd.find_element_by_name("to_group").click()
-        Select(wd.find_element_by_name("to_group")).select_by_value(id_group)
+        Select(wd.find_element_by_name("to_group")).select_by_value(id_g)
         wd.find_element_by_name("add").click()
         self.open_contact_list_page()
         self.contact_cache = None
 
-    def del_contact_in_group(self, id_contact, id_group):
+
+    def delete_contact_in_group(self, id_c, id_g):
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_element_by_name("group").click()
-        Select(wd.find_element_by_name("group")).select_by_value(id_group)
-        self.select_contact_by_id(id_contact)
+        Select(wd.find_element_by_name("group")).select_by_value(id_g)
+        self.select_contact_by_id(id_c)
         wd.find_element_by_name("remove").click()
         self.open_contact_list_page()
         wd.find_element_by_name("group").click()
