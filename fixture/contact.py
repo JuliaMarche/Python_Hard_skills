@@ -221,3 +221,12 @@ class ContactHelper:
         wd.find_element_by_name("group").click()
         Select(wd.find_element_by_name("group")).select_by_visible_text("[all]")
         self.contact_cache = None
+
+    def old_contact_list(self, contacts, contact):
+        n = -1
+        for i in range(len(contacts)):
+            c = contacts[i]
+            if c.id == contact.id:
+                n = i
+                break
+        contacts[n] = contact
